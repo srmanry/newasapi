@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,7 @@ class HomeView extends StatelessWidget {
         }
         return Column(
           children: [
+
             SizedBox(
               height: 60,
               child: ListView.builder(
@@ -42,14 +44,53 @@ class HomeView extends StatelessWidget {
                 );
               }),
             ),
+
+            CarouselSlider.builder(
+                items: controller.treandingNewsList.map((item) {
+                  return Container(
+                    margin: EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: NetworkImage(controller.treandingNewsList[index].urlToImage),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                }).toList(),
+                options: CarouselOptions(
+                  height: 400,
+                  aspectRatio: 16/9,
+                  viewportFraction: 0.8,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.3,
+                  onPageChanged:(index, reason) { controller.updateIndex(index);  },
+                  scrollDirection: Axis.horizontal,
+                ), itemCount: controller.treandingNewsList.length,
+            )
+
+         /*   SizedBox(height: 170,
+              child: ListView.builder(
+                  itemCount: controller.treandingNewsList.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (_,index){
+                return Image(image: NetworkImage(controller.treandingNewsList[index].urlToImage),height: 150,width: 170,fit :BoxFit.cover);
+              }),
+            ),*/
             Expanded(
               flex: 1,
               child: ListView.builder(
                 itemCount: controller.treandingNewsList.length,
                 itemBuilder: (context, index) {
                   final news = controller.treandingNewsList[index];
-                  return Padding(
-                    padding:  EdgeInsets.all(8.0),
+                  return Padding(padding:  EdgeInsets.all(8.0),
                     child: SizedBox(
 
                       width: double.infinity,

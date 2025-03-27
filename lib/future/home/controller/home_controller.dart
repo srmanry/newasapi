@@ -15,6 +15,12 @@ class HomeController extends GetxController {
   var errorMessage = "".obs;
   RxList<NewsApiDataModel> treandingNewsList = <NewsApiDataModel>[].obs;
 
+  var currentIndex = 0.obs;
+
+  void updateIndex(int index) {
+    currentIndex.value = index;
+  }
+
   @override
   void onInit() {
     super.onInit();
